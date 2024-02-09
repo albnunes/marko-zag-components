@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src/**/*", ".storybook/**/*"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "incremental": true,
@@ -10,7 +10,7 @@
     "noUnusedLocals": true,
     "outDir": "dist",
     "resolveJsonModule": true,
-    "rootDir": "src",
+    "rootDir": ".",
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",

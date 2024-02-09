@@ -1,3 +1,5 @@
 {
-  "exports": "./dist/components"
+  "exports": "./dist/components",
+  "taglib-imports":["marko-zag/marko.json"]
+
 }
