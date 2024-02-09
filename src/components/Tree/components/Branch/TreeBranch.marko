@@ -1,0 +1,28 @@
+import * as tree from "@zag-js/tree-view";
+import Tree from "../../Tree.marko";
+export type Input = ( {
+    renderBody?: Marko.Body<[tree.Api<any>]>;
+    api: tree.Api
+    branchProps: {
+    depth: number;
+    id: string;
+    disabled?: boolean;
+    }
+    name:string
+}
+);
+${console.log("treeBranch: ",input)}
+${console.log("treeBranch: ",Tree)}
+
+<li ...input.api.getBranchProps(input.branchProps)>
+    <div ...input.api.getBranchControlProps(input.branchProps)>
+        <span ...input.api.getBranchTextProps(input.branchProps)>
+            📂 ${input.name}
+        </span>
+    </div>
+    <ul ...input.api.getBranchContentProps(input.branchProps)>
+        <${input.renderBody}=[input.api]/>
+    </ul>
+</li>
+<return=input.api/>
+

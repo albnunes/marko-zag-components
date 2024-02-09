@@ -1,0 +1,39 @@
+import TreeBranch from "../components/Branch/TreeBranch.marko";
+import TreeItem from "../components/Item/TreeItem.marko";
+<Tree|ref|
+    id="file-directory-tree"
+    selectionMode="multiple"
+    labelText="TreeTest"
+>
+    <const/api=ref/>
+
+    <TreeBranch
+        api=api
+        branchProps={ id: "node_modules", depth: 1 }
+        name="node_modules"
+    >
+        <TreeItem
+            api=api
+            name="zag-js"
+            branchProps={ id: "node_modules/zag-js", depth: 2 }
+        />
+
+        <TreeItem
+            api=api
+            name="panda-js"
+            branchProps={ id: "node_modules/panda-js", depth: 2 }
+        />
+        <TreeBranch
+            api=api
+            branchProps={ id: "node_modules/@types", depth: 2 }
+            name="@types"
+        >
+
+            <TreeItem
+                api=api
+                name="typescript"
+                branchProps={ id: "node_modules/@types/typescript", depth: 2 }
+            />
+        </TreeBranch>
+    </TreeBranch>
+</Tree>

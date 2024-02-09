@@ -1,0 +1,19 @@
+import * as tree from "@zag-js/tree-view";
+export type Input = ( {
+    renderBody?: Marko.Body<[tree.Api<any>]>;
+    api: tree.Api
+    branchProps: {
+    depth: number;
+    id: string;
+    disabled?: boolean;
+    }
+    name:string
+}
+);
+
+<li ...input.api.getItemProps(input.branchProps)>
+    📄 ${input.name}
+</li>
+<${input.renderBody}=[input.api]/>
+
+<return=input.api/>
