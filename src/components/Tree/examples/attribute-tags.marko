@@ -1,45 +1,29 @@
-<Tree/ref
-    id="file-directory-tree"
-    selectionMode="multiple"
->
-    <h3>TreeTest</h3>
-      <div>
-    <button onClick() { ref.collapseAll(); }>
-      Collapse All
-    </button>
-    <button onClick() { ref.expandAll(); }>
-      Expand All
-    </button>
-    <button onClick() { ref.selectAll(); }>
-      Select All
-    </button>
-    <button onClick() { ref.deselectAll(); }>
-      Deselect All
-    </button>
-  </div>
-  <br>
-    <Branch
-        branchProps={ id: "node_modules", depth: 1 }
-        name="📂 node_modules"
-    >
-        <Item
-            name="📄 zag-js"
-            branchProps={ id: "node_modules/zag-js", depth: 2 }
-        />
+Tree/ref id="file-directory-tree" selectionMode="multiple"
 
-        <Item
-            name="📄 panda-js"
-            branchProps={ id: "node_modules/panda-js", depth: 2 }
-        />
-        <Branch
-            branchProps={ id: "node_modules/@types", depth: 2 }
-            name="📂 @types"
-        >
+  h3 -- TreeTest
 
-            <Item
-                name="📄 typescript"
-                branchProps={ id: "node_modules/@types/typescript", depth: 2 }
-            />
-        </Branch>
-    </Branch>
-</Tree>
+  div.tree-buttons
+    button onClick() { ref.collapseAll(); } -- Collapse All
+    button onClick() { ref.expandAll(); } -- Expand All
+    button onClick() { ref.selectAll(); } -- Select All
+    button onClick() { ref.deselectAll(); } -- Deselect All
+  
+  br
+
+  @branch name="📂 node_modules" branchProps={ id: "node_modules", depth: 1 }
+
+  @branch name="📂 node_modules",
+    branchProps={ id: "node_modules", depth: 1 }
+  
+      @item name="📄 zag-js",
+          branchProps={ id: "node_modules/zag-js", depth: 2 }
+
+      @item name="📄 panda-js",
+        branchProps={ id: "node_modules/panda-js", depth: 2 }
+      
+      @branch name="📂 @types",
+          branchProps={ id: "node_modules/@types", depth: 2 }
+
+        @Item name="📄 typescript",
+          branchProps={ id: "node_modules/@types/typescript", depth: 2 }
+

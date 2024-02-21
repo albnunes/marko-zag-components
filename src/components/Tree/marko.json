@@ -15,9 +15,6 @@
       "attributes": {
         "name": "string",
         "branchProps": "object"
-      },
-      "nested-tags": {
-        "item": {}
       }
     }
   }
