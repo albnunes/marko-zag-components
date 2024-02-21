@@ -1,40 +1,46 @@
 import * as tree from "@zag-js/tree-view";
 import { normalizeProps } from "marko-zag/dist/normalize-props";
-
 export type Input = (tree.Context & {
-  renderBody: Marko.Body<[tree.Api<any>]>;
-  labelText: string
+  renderBody: Marko.Body;
 }
 );
 
 <const/machine=(
-  () =>{
+  () => {
     return tree.machine({
       id: input.id,
-    }) 
+    });
   }
-)/> 
+)/>
 
 <use-machine/[machineState, send] machine=machine as any/>
 
 <const/api=tree.connect(machineState, send, normalizeProps as any)/>
 
 <return=api/>
-<div ...api.rootProps>
-          <h3 ...api.labelProps>${input.labelText}</h3>
-          <div>
-            <button onClick(){api.collapseAll()}>Collapse All</button>
-            <button onClick(){api.expandAll()}>Expand All</button>
-            <button onClick(){api.selectAll()}>Select All</button>
-            <button onClick(){api.deselectAll()}>Deselect All</button>
-          </div>
 
-    <ul ...api.treeProps>
-        <${input.renderBody}=[api]/>
-    </ul>
+<${console.log("tree machine", api)}/>
+
+<div ...api.rootProps>
+  <!-- <if=(
+    machineState.event.type == "ITEM.CLICK" ||
+    machineState.event.type == "BRANCH.CLICK"
+  )>
+    ${(hidden = !hidden)}
+  </if> -->
+  <ul ...api.treeProps>
+    <set=api>
+      <!-- All children can request the context attributes anywhere in the tree -->
+      <${input.renderBody}/>
+    </set>
+  </ul>
 </div>
 
-
-
-
-
+<style>
+  .icon-container {
+    display: flex; /* Ensures the images within are side by side */
+    align-items: center; /* Centers the images vertically */
+    justify-content: start; /* Aligns the images to the start */
+    margin-left: 10px; /* Optional: adds some space between the text and the images */
+  }
+</style>

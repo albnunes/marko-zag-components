@@ -1,37 +1,45 @@
 import TreeBranch from "../components/Branch/TreeBranch.marko";
 import TreeItem from "../components/Item/TreeItem.marko";
-<Tree|ref|
+<Tree/ref
     id="file-directory-tree"
     selectionMode="multiple"
-    labelText="TreeTest"
 >
-    <const/api=ref/>
-
+    <h3>TreeTest</h3>
+      <div>
+    <button onClick() { ref.collapseAll(); }>
+      Collapse All
+    </button>
+    <button onClick() { ref.expandAll(); }>
+      Expand All
+    </button>
+    <button onClick() { ref.selectAll(); }>
+      Select All
+    </button>
+    <button onClick() { ref.deselectAll(); }>
+      Deselect All
+    </button>
+  </div>
+  <br>
     <TreeBranch
-        api=api
         branchProps={ id: "node_modules", depth: 1 }
-        name="node_modules"
+        name="📂 node_modules"
     >
         <TreeItem
-            api=api
-            name="zag-js"
+            name="📄 zag-js"
             branchProps={ id: "node_modules/zag-js", depth: 2 }
         />
 
         <TreeItem
-            api=api
-            name="panda-js"
+            name="📄 panda-js"
             branchProps={ id: "node_modules/panda-js", depth: 2 }
         />
         <TreeBranch
-            api=api
             branchProps={ id: "node_modules/@types", depth: 2 }
-            name="@types"
+            name="📂 @types"
         >
 
             <TreeItem
-                api=api
-                name="typescript"
+                name="📄 typescript"
                 branchProps={ id: "node_modules/@types/typescript", depth: 2 }
             />
         </TreeBranch>
