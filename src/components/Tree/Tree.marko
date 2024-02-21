@@ -1,7 +1,11 @@
+import { type Api } from "@zag-js/tree-view";
+
 import * as tree from "@zag-js/tree-view";
 import { normalizeProps } from "marko-zag/dist/normalize-props";
+import { type Input as BranchInput } from "<Branch>";
 export type Input = (tree.Context & {
   renderBody: Marko.Body;
+  data?: BranchInput[];
 }
 );
 
@@ -15,7 +19,7 @@ export type Input = (tree.Context & {
 
 <use-machine/[machineState, send] machine=machine as any/>
 
-<const/api=tree.connect(machineState, send, normalizeProps as any)/>
+<const/api: Api=tree.connect(machineState, send, normalizeProps as any) as any />
 
 <return=api/>
 
@@ -32,6 +36,11 @@ export type Input = (tree.Context & {
     <set=api>
       <!-- All children can request the context attributes anywhere in the tree -->
       <${input.renderBody}/>
+      <if(input.data)>
+        <for|item| of=input.data>
+          <Branch/me ...item key=item.branchProps.id />
+        </for>
+      </if>
     </set>
   </ul>
 </div>

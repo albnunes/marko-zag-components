@@ -1,0 +1,24 @@
+{
+  "nested-tags": {
+    "item": {
+      "target-property": "items",
+      "is-repeated": true,
+      "open-tag-only": true,
+      "attributes": {
+        "id": "string",
+        "name": "string"
+      }
+    },
+    "branch": {
+      "target-property": "branches",
+      "is-repeated": true,
+      "attributes": {
+        "name": "string",
+        "branchProps": "object"
+      },
+      "nested-tags": {
+        "item": {}
+      }
+    }
+  }
+}
