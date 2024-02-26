@@ -1,0 +1,31 @@
+<!-- todo: the api is not working with '||', but when i use '/' this component doesn't render  -->
+Tree#file-directory-tree|api|
+  h3 -- TreeTest
+
+  div.tree-buttons
+    <button onClick() {
+      api.collapseAll();
+    }>
+      Collapse All
+    </button>
+    button onClick() { api.expandAll(); } -- Expand All
+    button onClick() { api.selectAll(); } -- Select All
+    button onClick() { api.deselectAll(); } -- Deselect All
+
+  br
+
+  @branch name="📂 node_modules" branchProps={ id: "node_modules", depth: 1 }
+
+    @item name="📄 zag-js" branchProps={ id: "node_modules/zag-js", depth: 2 }
+
+    @item [
+      name="📄 panda-js"
+      branchProps={ id: "node_modules/panda-js", depth: 2 }
+    ]
+
+    @branch name="📂 @types" branchProps={ id: "node_modules/@types", depth: 2 }
+
+      @item [
+        name="📄 typescript"
+        branchProps={ id: "node_modules/@types/typescript", depth: 3 }
+      ]

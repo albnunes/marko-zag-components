@@ -1,0 +1,51 @@
+import { type Input as BranchInput } from "<Branch>";
+static const data: BranchInput[] = [
+    {
+        name: "📂 node_modules",
+        branchProps: {
+            id: "node_modules",
+        },
+        branch: [
+            {
+                name: "📂 @types",
+                branchProps: { id: "node_modules/@types" },
+                item: [
+                    {
+                        name: "📄 typescript",
+                        branchProps: { id: "node_modules/@types/typescript" },
+                    },
+                ],
+            },
+        ],
+        item: [
+            {
+                name: "📄 zag-js",
+                branchProps: { id: "node_modules/zag-js" },
+            },
+            {
+                name: "📄 panda-js",
+                branchProps: { id: "node_modules/panda-js" },
+            },
+        ],
+    },
+];
+
+<Tree|tree| id="file-directory-tree" branch=data>
+    <h3>TreeTest</h3>
+    ${console.log("ref", tree)}
+    <div>
+        <button onClick() { tree.collapseAll(); }>
+            Collapse All
+        </button>
+        <button onClick() { tree.expandAll(); }>
+            Expand All
+        </button>
+        <button onClick() { tree.selectAll(); }>
+            Select All
+        </button>
+        <button onClick() { tree.deselectAll(); }>
+            Deselect All
+        </button>
+    </div>
+    <br>
+</Tree>

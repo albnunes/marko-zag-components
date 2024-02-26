@@ -1,6 +1,6 @@
-import type { Meta, Story } from "@storybook/marko";
+import type { Meta } from "@storybook/marko";
 import {
-  addRenderBodies,
+  // addRenderBodies,
   buildExtensionTemplate,
 } from "../../../.storybook/utils";
 import Component, { type Input } from "./Tree.marko";
@@ -32,9 +32,13 @@ export default {
     labelProps: {control: "text"}
   },
 } as Meta<Input>;
-const story = await createStoryFromExample("default");
+const storyDefault = await createStoryFromExample("default");
+const storyDinamyc = await createStoryFromExample("dynamic");
+const storyAttributeTags = await createStoryFromExample("attribute-tags");
 
-export const Default= story.bind({})
+export const Default= storyDefault.bind({})
+export const Dinamyc= storyDinamyc.bind({})
+export const AttributeTags= storyAttributeTags.bind({})
 
 // Default Story, represents the component in its simplest form
 // Default.args = {

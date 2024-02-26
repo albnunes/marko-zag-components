@@ -1,0 +1,9 @@
+import Branch from "../Branch/Branch.marko"
+
+export type Input = {
+  renderBody?: Marko.Body;
+  name: string;
+  className?: string;
+  onClick: <T extends typeof Branch>(target: T) => void;
+
+};
