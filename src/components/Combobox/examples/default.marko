@@ -1,0 +1,50 @@
+import * as combobox from "@zag-js/combobox";
+
+<const/comboboxData=[
+    { label: "Zambia", code: "ZA" },
+    { label: "Benin", code: "BN" },
+    { label: "Watercraft", code: "Watercraft" },
+    { label: "Automobiles", code: "Automobiles" },
+    { label: "Aircrafts", code: "Aircrafts" },
+]/>
+
+<const/collection=combobox.collection({
+    items: comboboxData,
+    itemToValue: (item) => item.code,
+    itemToString: (item) => item.label,
+})/>
+
+<id/comboboxId/>
+
+<Combobox/api id=comboboxId collection=collection>
+    <@item item="Watercraft">
+        Watercraft
+    </@item>
+    <@item item="Automobiles">
+        Automobiles
+    </@item>
+    <@item item="Aircrafts">
+        Aircrafts
+    </@item>
+</Combobox>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<pre>${JSON.stringify(
+    {
+        value: api.value,
+        hasSelectedItems: api.hasSelectedItems,
+        highlightedItem: api.highlightedItem,
+        highlightValue: api.highlightValue,
+        inputValue: api.inputValue,
+        isFocused: api.isFocused,
+        isInputValueEmpty: api.isInputValueEmpty,
+        isOpen: api.isOpen,
+        selectedItems: api.selectedItems,
+    },
+    null,
+    2,
+)}</pre>

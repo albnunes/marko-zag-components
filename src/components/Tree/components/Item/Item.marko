@@ -1,0 +1,45 @@
+import * as tree from "@zag-js/tree-view";
+import openVisible from "../../../../assets/openVisible.svg";
+import closeVisible from "../../../../assets/closeVisible.svg";
+import openLock from "../../../../assets/openLock.svg";
+import closeLock from "../../../../assets/closeLock.svg";
+import mixedIcon from "../../../../assets/mixed.svg";
+export type Input = ( {
+    renderBody?: Marko.Body<[tree.Api<any>]>;
+    // api: tree.Api
+    branchProps: {
+    depth: number;
+    id: string;
+    disabled?: boolean;
+    }
+    name:string
+    action?: any;
+}
+);
+
+<get/api="Tree"/>
+<let/hidden=false/>
+<let/locked=false/>
+<!-- Do whatever you need with the context here -->
+<!-- Active Coupon: ${coupon}. -->
+<div class={
+    locked,
+    hidden,
+}>
+    <li ...api.getItemProps(input.branchProps)>
+        <div class="item-control-icons">
+            ${input.name}
+
+            <if=input.action>
+                <${input.action.renderBody}/>
+            </if>
+        </div>
+    </li>
+</div>
+
+<style>
+    .item-control-icons {
+        display: flex;
+        align-items: center;
+    }
+</style>

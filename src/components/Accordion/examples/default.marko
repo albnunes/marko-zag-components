@@ -1,0 +1,44 @@
+<Accordion/api multiple id='accordionId'>
+    <@item value="Watercraft">
+    <@trigger|ref|>
+        <const/selectedClass=(
+        ref.value.includes("Watercraft") ? "underline" : ""
+        )/>
+        <div class="flex gap-2">
+        <div class=["font-semibold", selectedClass]>
+            Watercraft
+        </div>
+        <div>Yacht, Boats and Dinghies</div>
+        </div>
+    </@trigger>
+    <@content>Sample accordion content</@content>
+    </@item>
+    <@item value="Automobiles">
+    <@trigger>
+        <div class="flex gap-2">
+        <div class="font-semibold">
+            Automobiles
+        </div>
+        <div>Cars, Trucks and Vans</div>
+        </div>
+    </@trigger>
+    <@content>Sample accordion content</@content>
+    </@item>
+    <@item value="Aircrafts">
+    <@trigger>
+        <div class="flex gap-2">
+        <div class="font-semibold">
+            Aircrafts
+        </div>
+        <div>Airplanes, Helicopters and Rockets</div>
+        </div>
+    </@trigger>
+    <@content>Sample accordion content</@content>
+    </@item>
+</Accordion>
+
+<pre>${JSON.stringify(
+    { value: api.value, focusedValue: api.focusedValue },
+    null,
+    2,
+)}</pre>

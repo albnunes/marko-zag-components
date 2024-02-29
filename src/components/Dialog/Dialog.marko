@@ -1,0 +1,147 @@
+import * as dialog from "@zag-js/dialog";
+
+import { normalizeProps } from "marko-zag/dist/normalize-props";
+
+
+export type Input = (dialog.Context & {
+  close?: Marko.AttrTag<Omit<Marko.Input<"button">, 'renderBody'>  & {
+      renderBody: Marko.Body<[dialog.Api<any>]>;
+    }>;
+  description?: Marko.AttrTag<Omit<Marko.Input<"p">, 'renderBody'> & {
+      renderBody: Marko.Body<[dialog.Api<any>]>;
+    }>;
+  renderBody: Marko.Body<[dialog.Api<any>]>;
+  title?: Marko.AttrTag<Omit<Marko.Input<"h2">, 'renderBody'> & {
+      renderBody: Marko.Body<[dialog.Api<any>]>;
+    }>;
+  trigger: Marko.AttrTag<Omit<Marko.Input<"button">, 'renderBody'> & {
+      renderBody: Marko.Body<[dialog.Api<any>]>;
+    }>;
+}
+);
+<const/machine=(
+  () =>
+    dialog.machine({
+      id: input.id,
+      "aria-label": input["aria-label"],
+      closeOnEscapeKeyDown: input.closeOnEscapeKeyDown,
+      closeOnInteractOutside: input.closeOnInteractOutside,
+      dir: input.dir,
+      finalFocusEl: input.finalFocusEl,
+      getRootNode: input.getRootNode,
+      ids: input.ids,
+      initialFocusEl: input.initialFocusEl,
+      modal: input.modal,
+      onEscapeKeyDown: input.onEscapeKeyDown,
+      onFocusOutside: input.onFocusOutside,
+      onInteractOutside: input.onInteractOutside,
+      onOpenChange: input.onOpenChange,
+      onPointerDownOutside: input.onPointerDownOutside,
+      open: input.open,
+      preventScroll: input.preventScroll,
+      restoreFocus: input.restoreFocus,
+      role: input.role,
+      trapFocus: input.trapFocus,
+    })
+)/>
+
+<use-machine/[machineState, send] machine=machine/>
+<const/api=dialog.connect(machineState, send, normalizeProps)/>
+
+<return=api/>
+
+<button ...api.triggerProps ...input.trigger>
+  <${input.trigger.renderBody}=[api]/>
+</button>
+
+<if=api.isOpen>
+  <portal>
+    <div ...api.backdropProps class='backdrop'/>
+    <div ...api.positionerProps class='positioner'>
+      <div ...api.contentProps class='content'>
+        <if=input.title>
+          <h2
+            ...api.titleProps
+            ...input.title
+            class='title'
+          >
+            <${input.title.renderBody}=[api]/>
+          </h2>
+        </if>
+        <if=input.description>
+          <p
+            ...api.descriptionProps
+            ...input.description
+            class='description'
+          >
+            <${input.description.renderBody}=[api]/>
+          </p>
+        </if>
+        <${input.renderBody}=[api]/>
+        <if=input.close>
+          <button
+            ...api.closeTriggerProps
+            ...input.close
+            class='close'
+          >
+            <${input.close.renderBody}=[api]/>
+          </button>
+        </if>
+      </div>
+    </div>
+  </portal>
+</if>
+<style>
+  :root {
+    --zIndices-modal: 1400;
+    --colors-blackAlpha-600: rgba(0, 0, 0, 0.48);
+    --colors-gray-800: #1A202C;
+    --colors-bg-subtle: var(--colors-gray-800);
+  }
+  
+  .backdrop {
+    position: fixed;
+    inset: 0px;
+    z-index: var(--zIndices-modal);
+    background: var(--colors-blackAlpha-600);
+  }
+  
+  .positioner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: var(--zIndices-modal);
+    inset: 0px;
+  }
+  
+  .content {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 0.375rem;
+    background: var(--colors-bg-subtle);
+    padding: 1.25rem;
+    position: relative;
+    pointer-events: auto;
+  }
+  
+  .title {
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .description {
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .close {
+    display: flex;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+</style>

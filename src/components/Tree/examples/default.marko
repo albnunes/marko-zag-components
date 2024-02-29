@@ -1,47 +1,38 @@
-import TreeBranch from "../components/Branch/TreeBranch.marko";
-import TreeItem from "../components/Item/TreeItem.marko";
-<Tree/ref
-    id="file-directory-tree"
-    selectionMode="multiple"
->
-    <h3>TreeTest</h3>
-      <div>
-    <button onClick() { ref.collapseAll(); }>
+
+<Tree/api|aaa| id="file-directory-tree">
+  ${console.log("aaa", aaa)}
+  <h3>TreeTest</h3>
+  <div>
+    <button onClick() { api.collapseAll(); }>
       Collapse All
     </button>
-    <button onClick() { ref.expandAll(); }>
+    <button onClick() { api.expandAll(); }>
       Expand All
     </button>
-    <button onClick() { ref.selectAll(); }>
+    <button onClick() { api.selectAll(); }>
       Select All
     </button>
-    <button onClick() { ref.deselectAll(); }>
+    <button onClick() { api.deselectAll(); }>
       Deselect All
     </button>
   </div>
   <br>
-    <TreeBranch
-        branchProps={ id: "node_modules", depth: 1 }
-        name="📂 node_modules"
+  <Branch name="📂 node_modules" branchProps={ id: "node_modules", depth: 1 }>
+    <Item name="📄 zag-js" branchProps={ id: "node_modules/zag-js", depth: 2 }/>
+
+    <Item
+      name="📄 panda-js"
+      branchProps={ id: "node_modules/panda-js", depth: 2 }
+    />
+    <Branch
+      name="📂 @types"
+      branchProps={ id: "node_modules/@types", depth: 2 }
     >
-        <TreeItem
-            name="📄 zag-js"
-            branchProps={ id: "node_modules/zag-js", depth: 2 }
-        />
 
-        <TreeItem
-            name="📄 panda-js"
-            branchProps={ id: "node_modules/panda-js", depth: 2 }
-        />
-        <TreeBranch
-            branchProps={ id: "node_modules/@types", depth: 2 }
-            name="📂 @types"
-        >
-
-            <TreeItem
-                name="📄 typescript"
-                branchProps={ id: "node_modules/@types/typescript", depth: 2 }
-            />
-        </TreeBranch>
-    </TreeBranch>
+      <Item
+        name="📄 typescript"
+        branchProps={ id: "node_modules/@types/typescript", depth: 2 }
+      />
+    </Branch>
+  </Branch>
 </Tree>

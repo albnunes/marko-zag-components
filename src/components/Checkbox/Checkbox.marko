@@ -40,7 +40,6 @@ export type Input = (checkbox.Context & {
 <label class="checkTest" ...api.rootProps>
   <span ...api.labelProps>
     <${input.renderBody}=[api]/>
-    ${console.log("render body",input)}
   </span>
   <div ...api.controlProps/>
   <input class="sr-only" ...api.hiddenInputProps>

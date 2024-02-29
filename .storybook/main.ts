@@ -1,4 +1,7 @@
 import type { StorybookConfig } from "@storybook/marko-vite";
+import { taglib } from "@marko/compiler";
+
+// taglib.register("@marko-tags");
 
 export default {
   framework: "@storybook/marko-vite",

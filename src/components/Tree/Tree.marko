@@ -1,10 +1,23 @@
 import * as tree from "@zag-js/tree-view";
 import { normalizeProps } from "marko-zag/dist/normalize-props";
+import { type Input as BranchInput } from "<Branch>";
+import { type Input as ItemInput } from "<Item>";
+// import { type Input as ActionInput } from "<Action>";
+// import * as style from "./style.module.css"
+
 export type Input = (tree.Context & {
-  renderBody: Marko.Body;
+  renderBody?: Marko.Body<[tree.Api]>;
+  branch?: Marko.RepeatableAttrTag<BranchInput> | BranchInput[]
+  item?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
+  action?: any;
+  id: string
 }
 );
 
+<${console.log("input tree", input)}/>
+
+<const/branches=[...(input.branch || [])]/>
+<const/items=[...(input.item || [])]/>
 <const/machine=(
   () => {
     return tree.machine({
@@ -12,30 +25,29 @@ export type Input = (tree.Context & {
     });
   }
 )/>
-
 <use-machine/[machineState, send] machine=machine as any/>
 
-<const/api=tree.connect(machineState, send, normalizeProps as any)/>
-
-<return=api/>
-
-<${console.log("tree machine", api)}/>
-
-<div ...api.rootProps>
-  <!-- <if=(
-    machineState.event.type == "ITEM.CLICK" ||
-    machineState.event.type == "BRANCH.CLICK"
-  )>
-    ${(hidden = !hidden)}
-  </if> -->
-  <ul ...api.treeProps>
-    <set=api>
+<const/api=(
+  tree.connect(machineState, send, normalizeProps as any) as any
+)/>
+<set=api>
+<${console.log("tree api", api)}/>
+  <div ...api.rootProps>
+    <ul ...api.treeProps>
+      <!-- <${input.action}/> -->
       <!-- All children can request the context attributes anywhere in the tree -->
-      <${input.renderBody}/>
-    </set>
-  </ul>
-</div>
+      <${input.renderBody}=[api]/>
 
+      <for|item| of=branches>
+        <Branch ...item key=(item.branchProps.id)/>
+      </for>
+
+      <for|item| of=items>
+        <Item ...item key=(item.branchProps.id)/>
+      </for>
+    </ul>
+  </div>
+</set>
 <style>
   .icon-container {
     display: flex; /* Ensures the images within are side by side */
@@ -44,3 +56,4 @@ export type Input = (tree.Context & {
     margin-left: 10px; /* Optional: adds some space between the text and the images */
   }
 </style>
+<return=api/>

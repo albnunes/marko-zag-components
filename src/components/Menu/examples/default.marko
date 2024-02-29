@@ -1,0 +1,35 @@
+<Menu/api id="menuId" aria-label="File">
+    <@trigger>
+        Actions
+        <span aria-hidden="true">
+            ▾
+        </span>
+    </@trigger>
+    <@item id="edit">
+        Edit
+    </@item>
+    <@item id="duplicate">
+        Duplicate
+    </@item>
+    <@item id="delete">
+        Delete
+    </@item>
+    <@item id="export">
+        Export...
+    </@item>
+</Menu>
+<br>
+<br>
+<br>
+<br>
+<br>
+<pre>${JSON.stringify(
+    {
+        highlightedId: api.highlightedId,
+        isOpen: api.isOpen,
+        value: api.value,
+        reposition: api.reposition,
+    },
+    null,
+    2,
+)}</pre>

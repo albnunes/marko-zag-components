@@ -1,0 +1,28 @@
+<Dialog/api id="dialogId" role="dialog">
+    <@trigger>Open Dialog</@trigger>
+    <@title>Edit profile</@title>
+    <@description>
+        Make changes to your profile here. Click save when you are done.
+    </@description>
+    <@close>X</@close>
+    <input>
+</Dialog>
+<pre>${JSON.stringify({ isChecked: api.isOpen }, null, 2)}</pre>
+<!-- 
+
+
+<Dialog/api
+    id='dialogId'
+    role="dialog"
+    closeOnEscapeKeyDown
+    closeOnInteractOutside
+>
+    <@trigger>Open Dialog</@trigger>
+    <@title>Edit profile</@title>
+    <@description>
+    Make changes to your profile here. Click save when you are done.
+    </@description>
+    <@close>X</@close>
+    <input>
+</Dialog>
+<pre>${JSON.stringify({ isChecked: api.isOpen }, null, 2)}</pre> -->

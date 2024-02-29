@@ -1,0 +1,61 @@
+import * as accordion from "@zag-js/accordion";
+import { normalizeProps } from "marko-zag/dist/normalize-props";
+export type Input = (accordion.Context & {
+  item: Marko.RepeatableAttrTag<Marko.Input<"div"> & accordion.ItemProps & {
+    trigger: Marko.AttrTag<Omit<Marko.Input<"button">, 'renderBody'> & {
+      renderBody: Marko.Body<[accordion.Api<any>]>;
+    }>;
+    content: Marko.AttrTag<Omit<Marko.Input<"div">, 'renderBody'> & {
+      renderBody: Marko.Body<[accordion.Api<any>]>;
+    }>;
+  }>;
+
+}
+);
+
+<const/machine=(
+    () =>
+        accordion.machine({
+            id: input.id,
+            collapsible: input.collapsible,
+            dir: input.dir,
+            disabled: input.disabled,
+            getRootNode: input.getRootNode,
+            ids: input.ids,
+            multiple: input.multiple,
+            onFocusChange: input.onFocusChange,
+            onValueChange: input.onValueChange,
+            orientation: input.orientation,
+            value: input.value,
+        })
+)/>
+
+<use-machine/[machineState, send] machine=machine/>
+<const/api=accordion.connect(machineState, send, normalizeProps)/>
+
+
+<return=api/>
+
+<div ...api.rootProps class='styles.root'>
+    <for|item| of=input.item>
+        <const/{ value, disabled, trigger, content, ...rest }=item/>
+        <div ...api.getItemProps({ value, disabled }) ...rest class='styles.item'>
+            <h3>
+                <button
+                    ...api.getItemTriggerProps({ value, disabled })
+                    ...item.trigger
+                    class='styles.itemTrigger'
+                >
+                    <${item.trigger.renderBody}=[api]/>
+                </button>
+            </h3>
+            <div
+                ...api.getItemContentProps({ value, disabled })
+                ...item.content
+                class='styles.itemContent'
+            >
+                <${item.content.renderBody}=[api]/>
+            </div>
+        </div>
+    </for>
+</div>

@@ -1,0 +1,19 @@
+
+<id/switchId/>
+
+<Switch/ref|api| id=switchId>
+    <if=api.isChecked>
+    On
+    </if>
+    <else>Off</else>
+</Switch>
+
+<pre>${JSON.stringify(
+    {
+    isChecked: ref.isChecked,
+    isDisabled: ref.isDisabled,
+    isFocused: ref.isFocused,
+    },
+    null,
+    2,
+)}</pre>

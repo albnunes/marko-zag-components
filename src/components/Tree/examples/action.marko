@@ -1,0 +1,95 @@
+import closeLock from "./../../../assets/closeLock.svg";
+import closeVisible from "./../../../assets/closeVisible.svg";
+import openVisible from "./../../../assets/openVisible.svg";
+import openLock from "./../../../assets/openLock.svg";
+static const actions = [
+    {
+        name: "hidden",
+        class: { hidden: false },
+        // onClick: (event: PointerEvent) => {
+        //     event.stopPropagation();
+        //     console.log("hidden event", event);
+        // },
+    },
+    {
+        name: "lock",
+        class: { locked: false },
+        // onClick: (event: PointerEvent) => {
+        //     event.stopPropagation();
+        //     console.log("lock event", event);
+        // },
+    },
+];
+<!-- <const/hidden=false/> -->
+<!-- <const/locked=false/> -->
+<Tree id="file-directory-tree">
+    <!-- ${console.log("aaa", aaa)} -->
+
+    <h3>TreeTest</h3>
+    <div>
+        <button onClick() { api.collapseAll(); }>
+            Collapse All
+        </button>
+        <button onClick() { api.expandAll(); }>
+            Expand All
+        </button>
+        <button onClick() { api.selectAll(); }>
+            Select All
+        </button>
+        <button onClick() { api.deselectAll(); }>
+            Deselect All
+        </button>
+    </div>
+    <br>
+    <Branch name="📂 node_modules" branchProps={ id: "node_modules", depth: 1 }>
+        <@action>
+            <div class="icon-container">
+
+                <img
+                    src=(actions[0].class.hidden ? closeVisible : openVisible)
+                    ...actions[0]
+                    onClick(event) {
+                        event.stopPropagation();
+                        console.log("aaa");
+                        actions[0].class.hidden = !actions[0].class.hidden;
+                    }
+                >
+
+                <img
+                    src=(actions[1].class.locked ? closeLock : openLock)
+                    ...actions[1]
+                    onClick(event) {
+                        event.stopPropagation();
+                        console.log("aaa");
+                        actions[1].class.locked = !actions[1].class.locked;
+                    }
+                >
+            </div>
+        </@action>
+
+        <Item
+            name="📄 zag-js"
+            branchProps={ id: "node_modules/zag-js", depth: 2 }
+        />
+
+        <Item
+            name="📄 panda-js"
+            branchProps={ id: "node_modules/panda-js", depth: 2 }
+        />
+        <Branch
+            name="📂 @types"
+            branchProps={ id: "node_modules/@types", depth: 2 }
+        >
+
+            <Item
+                name="📄 typescript"
+                branchProps={ id: "node_modules/@types/typescript", depth: 2 }
+            />
+        </Branch>
+    </Branch>
+</Tree>
+<style>
+    .hidden {
+        opacity: 0.5;
+    }
+</style>

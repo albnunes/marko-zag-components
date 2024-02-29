@@ -33,36 +33,11 @@ export default {
   },
 } as Meta<Input>;
 const story = await createStoryFromExample("default");
+const dynamic = await createStoryFromExample("dynamic");
+const attribute = await createStoryFromExample("attribute-tags");
+const action = await createStoryFromExample("action");
 
 export const Default= story.bind({})
-
-// Default Story, represents the component in its simplest form
-// Default.args = {
-//   id: "defaultCheckbox",
-//   checked: false,
-//   dir: "ltr",
-//   disabled: false,
-//   name: "defaultCheckbox",
-//   required: false,
-//   renderBody: `Default Checkbox`,
-// };
-
-// // Checked Story, represents the component when it is checked
-// export const Checked: Story<Input> = {
-//   args: {
-//     ...Default.args, // Spreads the default args
-//     checked: true,
-//   },
-//   renderBody: ({ api }) =>
-//     `Checked Checkbox - ${api.checked ? "Checked" : "Unchecked"}`,
-// };
-
-// // Disabled Story, represents the component when it is disabled
-// export const Disabled: Story<Input> = {
-//   args: {
-//     ...Default.args,
-//     disabled: true,
-//   },
-//   renderBody: ({ api }) =>
-//     `Disabled Checkbox - ${api.checked ? "Checked" : "Unchecked"}`,
-// };
+export const Dynamic= dynamic.bind({})
+export const Attribute= attribute.bind({})
+export const Action= action.bind({})

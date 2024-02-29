@@ -1,0 +1,28 @@
+import * as avatar from "@zag-js/avatar";
+import { normalizeProps } from "marko-zag/dist/normalize-props";
+
+
+export type Input = (checkbox.Context & {
+  renderBody: Marko.Body<[avatar.Api<any>]>;
+}
+);
+
+<const/machine=(
+    () => {
+        return avatar.machine({
+            id: input.id,
+        });
+    }
+)/>
+
+
+
+<use-machine/[machineState, send] machine=machine/>
+<const/api=avatar.connect(machineState, send, normalizeProps as any)/>
+
+<return=api/>
+
+<div ...api.rootProps>
+    <span ...api.fallbackProps>PA</span>
+    <img alt="PA" src='./test.jpeg' ...api.imageProps />
+</div>

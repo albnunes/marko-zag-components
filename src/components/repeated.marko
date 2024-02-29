@@ -1,0 +1,5 @@
+export type Input<T=unknown> = {
+  value?: Marko.RepeatableAttrTag<T>
+}
+
+return=[...(input.value || [])] as T[]

@@ -1,0 +1,84 @@
+<!-- use tags -->
+import openVisible from "../../../../assets/openVisible.svg";
+import closeVisible from "../../../../assets/closeVisible.svg";
+import openLock from "../../../../assets/openLock.svg";
+import closeLock from "../../../../assets/closeLock.svg";
+import { type Input as ItemInput } from "<Item>";
+import { type Input as ActionInput } from "<Action>";
+static type InputProps = {
+  renderBody?: Marko.Body;
+  name: string;
+  branchProps: {
+    id: string;
+    depth?: number;
+    disabled?: boolean;
+  }
+  branch?: Marko.RepeatableAttrTag<InputProps>
+  item?: Marko.RepeatableAttrTag<ItemInput>
+  action?: any;
+}
+
+
+<const/branches=[...(input.branch || [])]/>
+<const/items=[...(input.item || [])]/>
+<!-- <const/action=[...(input.action || [])]/> -->
+export type Input = (Omit<InputProps, "name"> & { value: string }) | InputProps;
+
+<get/api="Tree"/>
+
+<let/hidden=false/>
+<let/locked=false/>
+
+<div
+    id=(input.branchProps.id)
+    class={
+        locked,
+        hidden,
+    }
+>
+    <li ...api.getBranchProps(input.branchProps)>
+        <div class="branch-control" ...api.getBranchControlProps(input.branchProps)>
+            <span ...api.getBranchTextProps(input.branchProps)>
+                ${input.name}
+            </span>
+
+            <if=input.action>
+                <${input.action.renderBody}/>
+            </if>
+            <!-- ${console.log("action ", action)} -->
+            <!-- <if=(action.length > 0)>
+
+                <Action ...action[0]/>
+            </if> -->
+            <!-- <img
+                src=(hidden ? closeVisible : openVisible)
+                onClick(event) {
+                    event.stopPropagation();
+                    hidden = !hidden;
+                    console.log("PROPS INSIDE THE HIDDEN", event);
+                }
+            > -->
+        </div>
+        <ul ...api.getBranchContentProps(input.branchProps)>
+            <${input.renderBody}/>
+
+            <for|item| of=branches>
+                <Branch ...item key=(item.branchProps.id)/>
+            </for>
+
+            <for|item| of=items>
+                <Item ...item key=(item.branchProps.id)/>
+            </for>
+        </ul>
+    </li>
+</div>
+
+<style>
+    
+    .branch-control {
+        display: flex; 
+        align-items: center; 
+    }
+
+
+</style>
