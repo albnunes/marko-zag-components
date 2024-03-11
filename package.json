@@ -1,31 +1,32 @@
 {
   "name": "marko-zag-components",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "description": "Marko library project with TypeScript",
   "license": "MIT",
   "type": "module",
   "files": [
     "dist",
     "marko.json",
-    "!**/*.test.*",
-    "!*.tsbuildinfo",
-    "!**/{,*.}stories.*"
+    "!**/__tests__",
+    "!**/*.tsbuildinfo"
   ],
   "scripts": {
     "@ci:build": "npm run build",
     "@ci:lint": "npm run lint",
     "@ci:test": "vitest run --coverage",
-    "build": "mtc",
+    "build": "mtc -p tsconfig.build.json",
     "clean": "rm -rf coverage dist node_modules/.{cache,vite,vitest}",
     "format": "eslint --format unix --fix .; stylelint --formatter unix --fix '**/*.css'; prettier . --write --log-level=warn",
     "lint": "mtc && eslint --format unix . && stylelint --formatter unix '**/*.css' && prettier . --check --log-level=warn",
     "prepare": "husky",
+    "release": "npm run build && tsx publish.mts pre && npm publish && tsx publish.mts post",
     "storybook": "storybook dev",
     "test": "vitest"
   },
   "devDependencies": {
     "@marko/compiler": "^5.34.6",
     "@marko/tags-api-preview": "0.7.3",
+    "tsx": "^4.7.1",
     "@marko/testing-library": "^6.1.5",
     "@marko/type-check": "^1.1.3",
     "@marko/vite": "^4.1.1",
@@ -53,15 +54,15 @@
     "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
-    "vitest": "^1.2.2"
+    "vitest": "^1.2.2",
+    "@storybook/addon-docs": "^7.6.12"
   },
+  "main": "marko.json",
   "peerDependencies": {
-    "marko": "4 - 5"
+    "marko": ">= 5.22.0"
   },
-  "private": true,
   "dependencies": {
     "@marko-tags/portal": "^1.2.2",
-    "@storybook/addon-docs": "^7.6.12",
     "@zag-js/accordion": "^0.36.2",
     "@zag-js/avatar": "^0.36.2",
     "@zag-js/checkbox": "^0.34.0",
@@ -69,7 +70,7 @@
     "@zag-js/dialog": "^0.36.2",
     "@zag-js/menu": "^0.36.2",
     "@zag-js/switch": "^0.36.2",
-    "@zag-js/tree-view": "^0.34.0",
-    "marko-zag": "^0.0.1"
+    "@zag-js/tree-view": "^0.38.1",
+    "marko-zag": "0.0.2"
   }
 }

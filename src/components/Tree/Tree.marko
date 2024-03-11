@@ -1,23 +1,23 @@
 import * as tree from "@zag-js/tree-view";
-import { normalizeProps } from "marko-zag/dist/normalize-props";
+import { normalizeProps } from "marko-zag";
 import { type Input as BranchInput } from "<Branch>";
 import { type Input as ItemInput } from "<Item>";
-// import { type Input as ActionInput } from "<Action>";
-// import * as style from "./style.module.css"
+import { type Input as ActionInput } from "<Action>";
 
 export type Input = (tree.Context & {
-  renderBody?: Marko.Body<[tree.Api]>;
+  id: string;
+  class?: string;
+  renderBody?: Marko.Body;
   branch?: Marko.RepeatableAttrTag<BranchInput> | BranchInput[]
   item?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
-  action?: any;
-  id: string
+  action?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
 }
 );
 
-<${console.log("input tree", input)}/>
-
 <const/branches=[...(input.branch || [])]/>
 <const/items=[...(input.item || [])]/>
+<const/actions=[...(input.action || [])]/>
+
 <const/machine=(
   () => {
     return tree.machine({
@@ -25,18 +25,25 @@ export type Input = (tree.Context & {
     });
   }
 )/>
+
 <use-machine/[machineState, send] machine=machine as any/>
 
 <const/api=(
-  tree.connect(machineState, send, normalizeProps as any) as any
+  tree.connect(machineState as any, send, normalizeProps as any) as any
 )/>
 <set=api>
-<${console.log("tree api", api)}/>
+
   <div ...api.rootProps>
     <ul ...api.treeProps>
-      <!-- <${input.action}/> -->
-      <!-- All children can request the context attributes anywhere in the tree -->
       <${input.renderBody}=[api]/>
+      <for|item| of=actions>
+        <if=item.renderBody>
+          <${item.renderBody}/>
+        </if>
+        <else>
+          <${item}/>
+        </else>
+      </for>
 
       <for|item| of=branches>
         <Branch ...item key=(item.branchProps.id)/>
@@ -48,12 +55,5 @@ export type Input = (tree.Context & {
     </ul>
   </div>
 </set>
-<style>
-  .icon-container {
-    display: flex; /* Ensures the images within are side by side */
-    align-items: center; /* Centers the images vertically */
-    justify-content: start; /* Aligns the images to the start */
-    margin-left: 10px; /* Optional: adds some space between the text and the images */
-  }
-</style>
+
 <return=api/>

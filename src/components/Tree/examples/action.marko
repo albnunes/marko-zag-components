@@ -6,24 +6,14 @@ static const actions = [
     {
         name: "hidden",
         class: { hidden: false },
-        // onClick: (event: PointerEvent) => {
-        //     event.stopPropagation();
-        //     console.log("hidden event", event);
-        // },
     },
     {
         name: "lock",
         class: { locked: false },
-        // onClick: (event: PointerEvent) => {
-        //     event.stopPropagation();
-        //     console.log("lock event", event);
-        // },
     },
 ];
-<!-- <const/hidden=false/> -->
-<!-- <const/locked=false/> -->
+
 <Tree id="file-directory-tree">
-    <!-- ${console.log("aaa", aaa)} -->
 
     <h3>TreeTest</h3>
     <div>
@@ -43,14 +33,13 @@ static const actions = [
     <br>
     <Branch name="📂 node_modules" branchProps={ id: "node_modules", depth: 1 }>
         <@action>
-            <div class="icon-container">
+            <div class="tree-action-container">
 
                 <img
                     src=(actions[0].class.hidden ? closeVisible : openVisible)
                     ...actions[0]
                     onClick(event) {
                         event.stopPropagation();
-                        console.log("aaa");
                         actions[0].class.hidden = !actions[0].class.hidden;
                     }
                 >
@@ -60,7 +49,6 @@ static const actions = [
                     ...actions[1]
                     onClick(event) {
                         event.stopPropagation();
-                        console.log("aaa");
                         actions[1].class.locked = !actions[1].class.locked;
                     }
                 >
@@ -91,5 +79,12 @@ static const actions = [
 <style>
     .hidden {
         opacity: 0.5;
+    }
+
+    .tree-action-container {
+        display: flex; /* Ensures the images within are side by side */
+        align-items: center; /* Centers the images vertically */
+        justify-content: start; /* Aligns the images to the start */
+        margin-left: 10px; /* Optional: adds some space between the text and the images */
     }
 </style>

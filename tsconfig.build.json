@@ -1,0 +1,28 @@
+{
+  "include": ["src/components/Tree/**/*.marko", "src/components/Tree/**/*.json"],
+  "exclude": [
+    ".storybook/**/*",
+    "src/components/Tree/examples",
+    "node_modules/**/*"
+  ],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "incremental": true,
+    "lib": ["dom", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "isolatedModules": true,
+
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"],
+    "verbatimModuleSyntax": true
+  }
+}

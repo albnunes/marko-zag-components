@@ -1,7 +1,10 @@
 {
-  "exports": "./dist/components",
+  "taglib-id": "marko-zag-components",
+  "tags-dir": "./src/components",
+  "script-lang": "ts",
   "taglib-imports": [
     "marko-zag/marko.json",
-    "@marko-tags/portal/marko.json"
+    "@marko-tags/portal/marko.json",
+    "./src/components/Tree/marko.json"
   ]
 }

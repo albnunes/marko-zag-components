@@ -4,15 +4,16 @@ static const data: BranchInput[] = [
         name: "📂 node_modules",
         branchProps: {
             id: "node_modules",
+            depth: 1
         },
         branch: [
             {
                 name: "📂 @types",
-                branchProps: { id: "node_modules/@types" },
+                branchProps: { id: "node_modules/@types", depth: 1 },
                 item: [
                     {
                         name: "📄 typescript",
-                        branchProps: { id: "node_modules/@types/typescript" },
+                        branchProps: { id: "node_modules/@types/typescript", depth: 2 },
                     },
                 ],
             },
@@ -20,11 +21,11 @@ static const data: BranchInput[] = [
         item: [
             {
                 name: "📄 zag-js",
-                branchProps: { id: "node_modules/zag-js" },
+                branchProps: { id: "node_modules/zag-js", depth: 2 },
             },
             {
                 name: "📄 panda-js",
-                branchProps: { id: "node_modules/panda-js" },
+                branchProps: { id: "node_modules/panda-js", depth: 2 },
             },
         ],
     },
@@ -32,7 +33,6 @@ static const data: BranchInput[] = [
 
 <Tree|tree| id="file-directory-tree" branch=data>
     <h3>TreeTest</h3>
-    ${console.log("ref", tree)}
     <div>
         <button onClick() { tree.collapseAll(); }>
             Collapse All

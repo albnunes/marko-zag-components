@@ -1,45 +1,31 @@
 import * as tree from "@zag-js/tree-view";
-import openVisible from "../../../../assets/openVisible.svg";
-import closeVisible from "../../../../assets/closeVisible.svg";
-import openLock from "../../../../assets/openLock.svg";
-import closeLock from "../../../../assets/closeLock.svg";
-import mixedIcon from "../../../../assets/mixed.svg";
+import { type Input as ActionInput } from "<Action>";
 export type Input = ( {
-    renderBody?: Marko.Body<[tree.Api<any>]>;
-    // api: tree.Api
     branchProps: {
-    depth: number;
-    id: string;
-    disabled?: boolean;
+        depth: number;
+        id: string;
+        disabled?: boolean;
     }
-    name:string
-    action?: any;
+    class?: string;
+    name?:string
+    renderBody?: Marko.Body<[tree.Api<any>]>;
+    action?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
 }
 );
 
+<const/actions=[...(input.action || [])]/>
+
 <get/api="Tree"/>
-<let/hidden=false/>
-<let/locked=false/>
-<!-- Do whatever you need with the context here -->
-<!-- Active Coupon: ${coupon}. -->
-<div class={
-    locked,
-    hidden,
-}>
-    <li ...api.getItemProps(input.branchProps)>
-        <div class="item-control-icons">
-            ${input.name}
 
-            <if=input.action>
-                <${input.action.renderBody}/>
-            </if>
-        </div>
-    </li>
-</div>
+<li class=input.class ...(api as tree.Api).getItemProps(input.branchProps)>
+    <for|item| of=actions>
+        <if=item.renderBody>
+            <${item.renderBody}/>
+        </if>
+        <else>
+            <${item}/>
+        </else>
+    </for>
+    ${input.name}
+</li>
 
-<style>
-    .item-control-icons {
-        display: flex;
-        align-items: center;
-    }
-</style>

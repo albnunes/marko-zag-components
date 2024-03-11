@@ -1,0 +1,5 @@
+{
+  "taglib-id": "Tree",
+  "tags-dir": "./components",
+  "script-lang": "ts"
+}
