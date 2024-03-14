@@ -2,21 +2,22 @@ import * as tree from "@zag-js/tree-view";
 import { normalizeProps } from "marko-zag";
 import { type Input as BranchInput } from "<Branch>";
 import { type Input as ItemInput } from "<Item>";
-import { type Input as ActionInput } from "<Action>";
+import { type Input as ActionInput } from "<ActionPanel>";
 
 export type Input = (tree.Context & {
   id: string;
-  class?: string;
+  classes?: string | string[];
   renderBody?: Marko.Body;
-  branch?: Marko.RepeatableAttrTag<BranchInput> | BranchInput[]
-  item?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
-  action?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
+  branches?: Marko.RepeatableAttrTag<BranchInput> | BranchInput[]
+  items?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
+  actionsPanel?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
 }
 );
 
-<const/branches=[...(input.branch || [])]/>
-<const/items=[...(input.item || [])]/>
-<const/actions=[...(input.action || [])]/>
+<const/branches=[...(input.branches || [])]/>
+<const/items=[...(input.items || [])]/>
+<const/actions=[...(input.actionsPanel || [])]/>
+<const/classes=[...(input.classes || [])]/>
 
 <const/machine=(
   () => {
@@ -33,7 +34,7 @@ export type Input = (tree.Context & {
 )/>
 <set=api>
 
-  <div ...api.rootProps>
+  <div class=classes ...api.rootProps>
     <ul ...api.treeProps>
       <${input.renderBody}=[api]/>
       <for|item| of=actions>

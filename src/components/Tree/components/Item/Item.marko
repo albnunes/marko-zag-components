@@ -1,23 +1,24 @@
 import * as tree from "@zag-js/tree-view";
-import { type Input as ActionInput } from "<Action>";
+import { type Input as ActionInput } from "<ActionPanel>";
 export type Input = ( {
     branchProps: {
         depth: number;
         id: string;
         disabled?: boolean;
     }
-    class?: string;
+    classes?: string | string[]
     name?:string
     renderBody?: Marko.Body<[tree.Api<any>]>;
-    action?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
+    actionsPanel?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[];
 }
 );
 
-<const/actions=[...(input.action || [])]/>
+<const/actions=[...(input.actionsPanel || [])]/>
+<const/classes=[...(input.classes || [])]/>
 
 <get/api="Tree"/>
 
-<li class=input.class ...(api as tree.Api).getItemProps(input.branchProps)>
+<li class=classes ...(api as tree.Api).getItemProps(input.branchProps)>
     <for|item| of=actions>
         <if=item.renderBody>
             <${item.renderBody}/>

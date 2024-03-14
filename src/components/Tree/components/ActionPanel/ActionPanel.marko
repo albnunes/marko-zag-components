@@ -1,0 +1,10 @@
+// import Branch from "../Branch/Branch.marko";
+export type Input = {
+  renderBody?: Marko.Body;
+    classes?: string | string[]
+    onClick?: (target: PointerEvent) => void;
+};
+const/classes=[...(input.classes || [])]
+
+div class=classes onClick=input.onClick
+  <${input.renderBody}/>

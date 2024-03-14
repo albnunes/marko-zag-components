@@ -1,29 +1,30 @@
 import { type Input as ItemInput } from "<Item>";
 import * as tree from "@zag-js/tree-view";
-import { type Input as ActionInput } from "<Action>";
+import { type Input as ActionInput } from "<ActionPanel>";
 static type InputProps = {
     branchProps: {
         id: string;
         depth: number;
         disabled?: boolean;
     }
-    class?: string;
+    classes?: string | string[]
     name?: string;
     renderBody?: Marko.Body;
-    branch?: Marko.RepeatableAttrTag<Input> | Input[]
-    item?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
-    action?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[] 
+    branches?: Marko.RepeatableAttrTag<Input> | Input[]
+    items?: Marko.RepeatableAttrTag<ItemInput> |  ItemInput[]
+    actionsPanel?: Marko.RepeatableAttrTag<ActionInput> | ActionInput[] 
 };
 
 
-<const/branches=[...(input.branch || [])]/>
-<const/items=[...(input.item || [])]/>
-<const/actions=[...(input.action || [])]/>
+<const/branches=[...(input.branches || [])]/>
+<const/items=[...(input.items || [])]/>
+<const/actions=[...(input.actionsPanel || [])]/>
+<const/classes=[...(input.classes || [])]/>
 
 export type Input = (InputProps & { value: string }) | InputProps;
 <get/api="Tree"/>
 
-<li class=input.class ...(api as tree.Api).getBranchProps(input.branchProps)>
+<li class=classes ...(api as tree.Api).getBranchProps(input.branchProps)>
     <div ...(api as tree.Api).getBranchControlProps(input.branchProps)>
         <for|item| of=actions>
             <if=item.renderBody>
